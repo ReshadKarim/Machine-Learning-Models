@@ -6,14 +6,14 @@ We have chosen the Hogzilla Dataset which is created by combining the network tr
 
 192 subset of flow features are selected from the dataset which are sufficient enough to accurately detect the characteristics of the botnets. 
 The features mainly consist of - 
-Flow Duration
-Maximum and minimum expire time of the flow
-Protocol type
-Bytes count (Source to destination and vice-versa)
-Packets
-Source to destination packets
-Destination to source packets
-Maximum and minimum flow idle time 
+Flow Duration,
+Maximum and minimum expire time of the flow,
+Protocol type,
+Bytes count (Source to destination and vice-versa),
+Packets,
+Source to destination packets,
+Destination to source packets,
+Maximum and minimum flow idle time. 
 
 
 After applying the mechine learning models we get the accuracy of-
