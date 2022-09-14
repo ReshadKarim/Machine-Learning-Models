@@ -176,8 +176,8 @@ accuracy_train_04=svc.score(X_train, y_train)
 accuracy_test_04=svc.score(X_test, y_test)
 print("Accuracy of SVC  : ", accuracy_test_04*100,'%' ) #SVC Accuracy
 t2 = time.perf_counter()
-NNCtime= t2-t1
-print('time taken to run:',NNCtime) #time
+SVCtime= t2-t1
+print('time taken to run:',SVCtime) #time
 
 
 
