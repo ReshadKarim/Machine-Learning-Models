@@ -18,8 +18,9 @@ Maximum and minimum flow idle time.
 
 After applying the mechine learning models we get the accuracy of-
 
-Accuracy of Neural Network Classifier     :   72.22 %
-Accuracy of Linear Regression             :   73.88 %
-Accuracy of Logistic Regression           :   80.38 %
-Accuracy of Decision Tree                 :   96.62%
-Accuracy of Random Forest Classifier      :   96.84 %
+Accuracy of Linear Regression             :    62.64 %    execution time:     16.32 sec
+Accuracy of Neural Network Classifier  :   71.97 %     execution time:     435.51 sec
+Accuracy of Logistic Regression           :   78.52 %     execution time:      141.3 sec
+Accuracy of Decision Tree                    :    96.61%      execution time:     23.92 sec
+Accuracy of Random Forest Classifier  :   96.81 %     execution time:  85.43 sec
+
