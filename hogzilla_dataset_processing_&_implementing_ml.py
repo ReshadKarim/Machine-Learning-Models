@@ -11,6 +11,7 @@ Original file is located at
 #Importing important librarys
 import pandas as pd
 import numpy as np
+import time
 import seaborn as sns
 import matplotlib.pyplot as plt
 # %matplotlib inline 
@@ -78,7 +79,7 @@ x_train_temp = scaler.transform(X_train)
 
 #"""********** Logistic Regression **********"""
 
-from sklearn.linear_model import LogisticRegression
+t1 = time.perf_counter()
 model_conduct = LogisticRegression()
 model_conduct.fit(X_train, y_train) #Training the model
 predictions = model_conduct.predict(X_test)
@@ -86,19 +87,27 @@ print(predictions)# printing predictions
 
 # Logistic Regression Accuracy Test
 LogisticRegressionAccuracy = accuracy_score(y_test, predictions)
-print("Accuracy of Logistic Regression : ",LogisticRegressionAccuracy*100,'%') #Logistic Regression Accuracy
+print("Accuracy of Logistic Regression : ",LogisticRegressionAccuracy*100,'%')
+
+t2 = time.perf_counter()
+LogisticRegtime= t2-t1
+print('time taken to run:',LogisticRegtime) #time
 
 
 
 
 #"""****************Decision Tree ****************"""
 
-from sklearn.tree import DecisionTreeClassifier
+t1 = time.perf_counter()
 conduct = DecisionTreeClassifier(criterion='entropy',random_state=20)
 conduct.fit(X_train, y_train)
 y_prediction = conduct.predict(X_test)
 DecisionTreeAccuracy = accuracy_score(y_prediction,y_test)
 print("Accuracy of Decision Tree : ",DecisionTreeAccuracy*100,'%') #Decision Tree Accuracy
+
+t2 = time.perf_counter()
+Decisiontreetime= t2-t1
+print('time taken to run:',Decisiontreetime) #time
 
 
 
@@ -107,10 +116,14 @@ print("Accuracy of Decision Tree : ",DecisionTreeAccuracy*100,'%') #Decision Tre
 
 #LinearRegression 
 from sklearn.linear_model import LinearRegression
+t1 = time.perf_counter()
 regressor = LinearRegression()
 regressor.fit(X_train,y_train)
 LinearRegression  = regressor.score(X_test,y_test)
-print("Accuracy of Linear Regression  : ", LinearRegression*100,'%' ) #Linear Regression Accuracy
+print("Accuracy of Linear Regression  : ", LinearRegression*100,'%' ) #Linear Regression Accuracy 
+t2 = time.perf_counter()
+LinearRegtime= t2-t1
+print('time taken to run:',LinearRegtime) #time
 
 
 
@@ -118,13 +131,18 @@ print("Accuracy of Linear Regression  : ", LinearRegression*100,'%' ) #Linear Re
 #"""** ******** Random Forest Classifier **********"""
 
 from sklearn.ensemble import RandomForestClassifier
+t1 = time.perf_counter()
 rfc = RandomForestClassifier(n_estimators=50)
 rfc.fit(X_train, y_train)
 rfc.predict(X_test)
 rfc.score(X_test,y_test)
 accuracy_train_05=rfc.score(X_train, y_train)
-accyracy_test_05=rfc.score(X_test, y_test)
-print("Accuracy of Random Forest Classifier  : ", accyracy_test_05*100,'%' ) #Random Forest Classifier Accuracy
+accuracy_test_05=rfc.score(X_test, y_test)
+print("Accuracy of Random Forest Classifier  : ", accuracy_test_05*100,'%' ) #Random Forest Classifier Accuracy
+
+t2 = time.perf_counter()
+RandomForesttime= t2-t1
+print('time taken to run:',RandomForesttime) #time
 
 
 
@@ -132,15 +150,18 @@ print("Accuracy of Random Forest Classifier  : ", accyracy_test_05*100,'%' ) #Ra
 #"""********** Neural Network Classifier **********"""
 
 from sklearn.neural_network import MLPClassifier
+t1 = time.perf_counter()
 nnc=MLPClassifier(hidden_layer_sizes=(7), activation="relu", max_iter=10000)
 
 nnc.fit(X_train, y_train)
-
+predictions = nnc.predict(X_test)
 accuracy_train_03=nnc.score(X_train, y_train)
 accuracy_test_03=nnc.score(X_test, y_test)
-
-predictions = nnc.predict(X_test)
 print("Accuracy of Neural Network Classifier  : ", accuracy_test_03*100,'%' ) #Neural Network Classifier Accuracy
+
+t2 = time.perf_counter()
+NNCtime= t2-t1
+print('time taken to run:',NNCtime) #time
 
 
 
@@ -148,27 +169,45 @@ print("Accuracy of Neural Network Classifier  : ", accuracy_test_03*100,'%' ) #N
 #"""********** SVC (Takes too much time) **********"""
 
 from sklearn.svm import SVC
+t1 = time.perf_counter()
 svc = SVC(kernel="linear")
 svc.fit(X_train, y_train)
 accuracy_train_04=svc.score(X_train, y_train)
 accuracy_test_04=svc.score(X_test, y_test)
 print("Accuracy of SVC  : ", accuracy_test_04*100,'%' ) #SVC Accuracy
-
+t2 = time.perf_counter()
+NNCtime= t2-t1
+print('time taken to run:',NNCtime) #time
 
 
 
 #"""********** Comparing Graph **********"""
 
+#Accuracy graph
 fig, ax = plt.subplots()
 names = ['NeuralNetwork','LinearRegre','LogisticRegre','DecisionTree', 'RandomForest' ]
 plt.tight_layout()
 plt.subplots_adjust(wspace = 1, hspace = 1)
-acc =[ accuracy_test_03*100, LinearRegression*100, LogisticRegressionAccuracy*100, DecisionTreeAccuracy*100, accyracy_test_05*100 ]
+acc =[ accuracy_test_03*100, LinearRegression*100, LogisticRegressionAccuracy*100, DecisionTreeAccuracy*100, accuracy_test_05*100 ]
 position = [1,2,3,4,5]
 ax.bar(position,acc, width=0.5, color="red", bottom=None, align='center')
 plt.xticks(position,names )
 plt.subplots_adjust(wspace = 1, hspace = 1)
 ax.set_title('Accuracy Comparision of Logistic Regression,  Decision Tree, Linear Regression, Random Forest and NNC')
 ax.set_xlabel('Classification')
-ax.set_ylabel('Accuracy')
+ax.set_ylabel('Accuracy % ')
 
+
+#Execution time graph
+fig, ax = plt.subplots()
+names = ['LinearRegre', 'NeuralNetwork','LogisticRegre','DecisionTree', 'RandomForest' ]
+plt.tight_layout()
+plt.subplots_adjust(wspace = 1, hspace = 1)
+acc =[ LinearRegtime, NNCtime,  LogisticRegtime, Decisiontreetime, RandomForesttime ]
+position = [1,2,3,4,5]
+ax.bar(position,acc, width=0.5, color="red", bottom=None, align='center')
+plt.xticks(position,names )
+plt.subplots_adjust(wspace = 1, hspace = 1)
+ax.set_title('Execution time Comparision of Logistic Regression,  Decision Tree, Linear Regression, Random Forest and NNC')
+ax.set_xlabel('Classification')
+ax.set_ylabel('Time (seconds)')
